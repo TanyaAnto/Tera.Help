@@ -184,7 +184,7 @@
                     </div>
                     <div class="info-column-right">
                         <span class="info-label-small">Опыт</span>
-                        <span class="info-value-small">10 лет</span>
+                        <span class="info-value-small" data-practice-start="2016-09-01">10 лет</span>
                     </div>
                 </div>
                 
@@ -236,5 +236,19 @@
         </div>
     </div>
 
+    <script>
+        (function() {
+            var el = document.querySelector('[data-practice-start]');
+            if (!el) return;
+            var start = new Date(el.getAttribute('data-practice-start'));
+            var now = new Date();
+            var years = now.getFullYear() - start.getFullYear();
+            var monthDiff = now.getMonth() - start.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < start.getDate())) { years--; }
+            var n = years % 100;
+            var word = (n >= 11 && n <= 14) ? 'лет' : ({ 1: 'год', 2: 'года', 3: 'года', 4: 'года' }[n % 10] || 'лет');
+            el.textContent = years + ' ' + word;
+        })();
+    </script>
 </body>
 </html>
